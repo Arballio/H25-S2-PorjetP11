@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Exam formatif/.vscode"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"bitset": "cpp",
+			"random": "cpp",
+			"optional": "cpp",
+			"set": "cpp",
+			"iosfwd": "cpp",
+			"new": "cpp",
+			"iostream": "cpp"
+		}
+	}
+}
