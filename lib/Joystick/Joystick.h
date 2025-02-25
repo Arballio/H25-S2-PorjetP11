@@ -6,6 +6,6 @@
 #define y_pin A2
 
 int xValue = 0;
-int yValye = 0;
+int yValue = 0;
 
 float lecture();
