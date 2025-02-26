@@ -7,9 +7,10 @@ float lecture()
 
 
     //print
-
+    printf("test de joystick");
     Serial.print("x = ");
     Serial.print(xValue);
     Serial.print("y = ");
     Serial.print(yValue);
+    delay(200);
 }
