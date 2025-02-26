@@ -36,8 +36,8 @@
 // ================================================================================================
 // ================================================================================================
 
-const int rs = 12, en = 11, d4 = 49, d5 = 47, d6 = 45, d7 = 43;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+const int rs = 53, rw = 51, en = 49, d4 = 47, d5 = 45, d6 = 43, d7 = 41;
+LiquidCrystal lcd(rs,rw, en, d4, d5, d6, d7);
 
 
 // ================================================================================================
@@ -45,8 +45,6 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 //            PRIVATE VARIABLE DECLARATION
 // ================================================================================================
 // ================================================================================================
-
-extern Keypad customKeypad;
 
 
 
@@ -56,7 +54,7 @@ extern Keypad customKeypad;
 // ================================================================================================
 // ================================================================================================
 
-int GetNumber(int MaxNum);
+//int GetNumber(int MaxNum);
 
 // ================================================================================================
 // ================================================================================================
@@ -67,25 +65,9 @@ int GetNumber(int MaxNum);
   menu_t Menus[5] = {0};
 
 
-  Shape_t *Shape;
-
-
-
-void InitLcd(Shape_t *p_shape)
+void InitLcd()
 {
     lcd.begin(16, 2);
-
-    /* Init Shape*/
-
-    *Shape = *p_shape;
-
-    Shape->PosX = 0;
-    Shape->PosY = 0;
-    Shape->Rad = 0;
-    Shape->Height = 0;
-    Shape->Lenght = 0;
-    Shape->NbOfSides = 0;
-
 
   
       /** Menu principal */
@@ -94,14 +76,14 @@ void InitLcd(Shape_t *p_shape)
   strcpy(Menus[0].lines[0], "Menu Principal");Menus[0].type[0] = info;
   strcpy(Menus[0].lines[1], "Menu Shape");Menus[0].type[1] = NextPage; Menus[0].MenuPointer[1] = 1;
   strcpy(Menus[0].lines[2], "Settings");Menus[0].type[2] = NextPage; Menus[0].MenuPointer[2] = 2;
-  strcpy(Menus[0].lines[3], "Restart");Menus[0].type[3] = fonction;
+  strcpy(Menus[0].lines[3], "Restart");Menus[0].type[3] = info;
   /** Fin init menu**/
 
   /** Menu shape */
   Menus[1].NbLines = 3;
 
-  strcpy(Menus[1].lines[0], "Cercle");Menus[1].type[0] = fonction;
-  strcpy(Menus[1].lines[1], "Polygone");Menus[1].type[1] = fonction;
+  strcpy(Menus[1].lines[0], "Cercle");Menus[1].type[0] = info;
+  strcpy(Menus[1].lines[1], "Polygone");Menus[1].type[1] = info;
   strcpy(Menus[1].lines[2], "return");Menus[1].type[4] = NextPage; Menus[1].MenuPointer[4] = 0;
 
   /** Fin init menu**/
@@ -110,18 +92,11 @@ void InitLcd(Shape_t *p_shape)
   Menus[2].NbLines = 5;
 
   strcpy(Menus[2].lines[0], "Coords");Menus[2].type[0] = NextPage; Menus[2].MenuPointer[0] = 3;
-  sprintf(Menus[2].lines[1], "Rad = %d",Shape->Rad);Menus[2].type[1] = fonction;
-  sprintf(Menus[2].lines[2], "Height = %d",Shape->Height);Menus[2].type[2] = fonction;
-  sprintf(Menus[2].lines[3], "Lenght = %d",Shape->Lenght);Menus[2].type[3] = fonction;
-  sprintf(Menus[2].lines[4], "Sides: = %d",Shape->NbOfSides);Menus[2].type[4] = fonction;
-  sprintf(Menus[2].lines[5], "return");Menus[2].type[4] = NextPage; Menus[2].MenuPointer[4] = 0;
   /** Fin init menu**/
 
   /** Menu Settings */
   Menus[3].NbLines = 3;
 
-  sprintf(Menus[3].lines[0], "PosX = %d",Shape->PosX);Menus[2].type[1] = fonction;
-  sprintf(Menus[3].lines[1], "PosY = %d",Shape->PosY);Menus[2].type[2] = fonction;
   strcpy(Menus[3].lines[2], "return");Menus[2].type[4] = NextPage; Menus[3].MenuPointer[3] = 0;
   /** Fin init menu**/
 
@@ -190,7 +165,7 @@ Function_e MenuManager(inputs_e input)
 	return retCode;
 }
 
-void ChangeSpecs(Function_e Specs){
+/*void ChangeSpecs(Function_e Specs){
 
   CLEAR_SCREEN();
 
@@ -208,7 +183,7 @@ void ChangeSpecs(Function_e Specs){
   }
   
   
-}
+}*/
 
 // ================================================================================================
 // ================================================================================================
@@ -216,7 +191,7 @@ void ChangeSpecs(Function_e Specs){
 // ================================================================================================
 // ================================================================================================
 
-int GetNumber(int MaxNum)
+/*int GetNumber(int MaxNum)
 {
   int number = 0;
   char customKey = 0;
@@ -244,3 +219,4 @@ int GetNumber(int MaxNum)
   MenuManager(NO_INPUT);
   return number;
 }
+*/

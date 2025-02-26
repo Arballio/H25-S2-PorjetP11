@@ -60,11 +60,11 @@ typedef enum Functions{
 
 typedef enum Inputs{
 	NO_INPUT = 0,
-	MENU_UP = '2',
-	MENU_DOWN = '8',
-	MENU_LEFT = '4',
-	MENU_RIGHT = '6',
-	MENU_ENTER = '5',
+	MENU_UP,
+	MENU_DOWN,
+	MENU_LEFT,
+	MENU_RIGHT,
+	MENU_ENTER,
 }inputs_e;
 
 
@@ -83,16 +83,6 @@ typedef struct Menu{
 }menu_t;
 
 
-typedef struct shape{
-    int PosX;
-    int PosY;
-    int Rad;
-    int Height;
-    int Lenght;
-    int NbOfSides;
-}Shape_t;
-
-
 // ================================================================================================
 // ================================================================================================
 //            EXTERNAL FUNCTION DECLARATION
@@ -101,7 +91,7 @@ typedef struct shape{
 
 void printLine(char *str);
 Function_e MenuManager(inputs_e input);
-void InitLcd(Shape_t *p_shape);
+void InitLcd();
 void ChangeSpecs(Function_e Specs);
 
 #endif // SCREEN_16X2_DRIVER_H_INCLUDED
