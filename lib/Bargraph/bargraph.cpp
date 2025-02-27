@@ -1,9 +1,6 @@
 #include "bargraph.h"
 #include "Accelero.h"
-
-int led[9] = {32, 30, 28, 26, 24, 22, 33, 31, 29};
-
-
+//allumer le bargraph
 void bargraph(int max, int min, int current_value)
 {
     int step = (max - min)/10;
