@@ -50,7 +50,7 @@ void testButton(){
     }
 }
 
-bool password(int max_tries = 9999){
+bool password(int max_tries){
     int count = 0;
     int password[4] = {0,2,3,2};
     int clicked[4] = {0,0,0,0};
