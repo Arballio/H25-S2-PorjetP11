@@ -22,7 +22,6 @@
 #include "stdint.h"
 #include "string.h"
 #include <LiquidCrystal.h>
-#include <Keypad.h>
 
 // ================================================================================================
 // ================================================================================================
@@ -49,12 +48,6 @@ typedef enum{
 typedef enum Functions{
 //	FUNC_NAME 	= 0x{MENU}{LIGNE},
 	no_func		= 0,
-	circle 		= 0x10,
-	polynome 	= 0x11,
-	SetCoords	= 0x20,
-	SetRad		= 0x21,
-	SetHeight	= 0x22,
-	SetLenght	= 0x23,
 }Function_e;
 
 

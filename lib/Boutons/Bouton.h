@@ -1,12 +1,26 @@
 #include <Arduino.h>
 #include <stdio.h>
 
+#pragma once
+
+typedef enum{
+    SW1,
+    SW2,
+    SW3,
+    SW4,
+}ButtonsName;
 
 
-#define press1 A3
-#define press2 A4
-#define press3 A5
-#define press4 A6
+typedef struct ButtonsStruct{
+    int Pin;
+    int State;
+    int lastState;
+    unsigned long lastDebounceTime;
+}Buttons_s;
 
 
-int press_read();
+void testButton();
+void printButtonState(int clicked[4]);
+void readButton(int clicked[4]);
+void initButton();
+void password();
