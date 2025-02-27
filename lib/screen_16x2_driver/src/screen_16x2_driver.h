@@ -83,8 +83,8 @@ typedef struct Menu{
 // ================================================================================================
 
 void printLine(char *str);
-Function_e MenuManager(inputs_e input);
-void InitLcd();
-void ChangeSpecs(Function_e Specs);
+Function_e menuManager(inputs_e input);
+void initLcd();
+void changeSpecs(Function_e Specs);
 
 #endif // SCREEN_16X2_DRIVER_H_INCLUDED

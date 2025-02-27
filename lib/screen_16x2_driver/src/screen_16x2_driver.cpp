@@ -65,7 +65,7 @@ LiquidCrystal lcd(rs,rw, en, d4, d5, d6, d7);
   menu_t Menus[5] = {0};
 
 
-void InitLcd()
+void initLcd()
 {
     lcd.begin(16, 2);
 
@@ -122,7 +122,7 @@ void printLine(char c)
 }
 
 //Fonction interrompante?
-Function_e MenuManager(inputs_e input)
+Function_e menuManager(inputs_e input)
 {
 	static int i = 0,j = 0;
 	Function_e retCode = no_func;
@@ -149,11 +149,9 @@ Function_e MenuManager(inputs_e input)
 			i = Menus[i].MenuPointer[j];
 			j = 0;
 		}
-
-
 		break;
-
-
+  default:
+      break;
 	}
   lcd.noDisplay();
 	CLEAR_SCREEN();
