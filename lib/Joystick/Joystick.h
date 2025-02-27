@@ -2,10 +2,12 @@
 #include <stdio.h>
 
 
-#define x_pin A1
-#define y_pin A2
+/*#define x_pin A15
+#define y_pin A14
 
-int xValue = 0;
-int yValue = 0;
+typedef enum{
+    up = 0, down, left, right, neutral
 
-float lecture();
+}direction;
+
+direction lecture_joystick();*/
