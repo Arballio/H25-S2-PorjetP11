@@ -6,4 +6,5 @@ const int powerpin = 19;
 const int xpin = A13;
 const int ypin = A12;
 const int zpin = A11;
+
 void movementdetec();

@@ -1,6 +1,6 @@
 #include <Joystick.h>
 
-void init_joy()
+/*void init_joy()
 {
     pinMode(x_pin, INPUT);
     pinMode(y_pin, INPUT);
@@ -55,20 +55,6 @@ direction lecture_joystick()
     }
     
     return state;
-}
-/*
-void test_state()
-{
-    if (state == neutral)
-        printf("neutral");
-    if (state == up)
-        printf("up");
-    if (state == down)
-        printf("down");
-    if (state == left)
-        printf("left");
-    else
-        printf("right");
-    delay(200);
-}
-*/
+}*/
+
+

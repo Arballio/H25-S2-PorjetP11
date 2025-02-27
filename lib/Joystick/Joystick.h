@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-#define x_pin A15
+/*#define x_pin A15
 #define y_pin A14
 
 typedef enum{
@@ -10,4 +10,4 @@ typedef enum{
 
 }direction;
 
-direction lecture_joystick();
+direction lecture_joystick();*/
