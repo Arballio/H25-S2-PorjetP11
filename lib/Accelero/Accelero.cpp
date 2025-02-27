@@ -1,4 +1,4 @@
-#include <Accelero.h>
+#include "Accelero.h"
 
 void movementdetec()
 {
@@ -8,20 +8,15 @@ void movementdetec()
     digitalWrite(powerpin, HIGH);
     int Xpin = analogRead(xpin);
     int Ypin = analogRead(ypin);
-    int Zpin = analogRead(zpin);
+    int Zpin = analogRead(zpin);  
+}
 
+void shake_bar()
+{
+    int max = 700;
+    int current_value;
+    movementdetec();
     
-
-    Serial.print("movement detected");
-    Serial.print("\n");
-    Serial.print(Xpin);
-    Serial.print("\n");
-    Serial.print(Ypin);
-    Serial.print("\n");
-    Serial.print(Zpin);
-    Serial.print("\n");
-    delay(100);
-
-
-   
+    current_value = Zpin;
+    bargraph(max, 300, current_value);
 }
