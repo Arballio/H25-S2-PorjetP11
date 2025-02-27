@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include "screen_16x2_driver.h"
 #include "Bouton.h"
+#include "bargraph.h"
+#include "Joystick.h"
 
 // ================================================================================================
 // =============================== Private functions ==============================================
@@ -12,6 +14,7 @@ bool NonStoppingDelay(unsigned int delayTime);
 void menuFunction(Function_e function);
 void motor_rumble(int duration = 500);
 void blinkLed(int duration = 500);
+
 
 
 // ================================================================================================
@@ -25,6 +28,8 @@ void initPins()
   pinMode(36, OUTPUT);
   pinMode(38, OUTPUT);
   pinMode(40, OUTPUT);
+
+  pinMode(A10, INPUT);
 }
 
 
@@ -34,7 +39,13 @@ void setup() {
   Serial.println("Hello World");
   initButton();
   initLcd();
+  initPins();
+  init_joy();
+  delay(1000);
   menuManager(NO_INPUT);
+  delay(1000);
+  lecture_joystick();
+  //while(1);
 }
 
 
@@ -70,6 +81,14 @@ void loop() {
       menuManager(NO_INPUT);
   }
 
+  bargraph(1024,0,analogRead(A10));
+
+  direction read = lecture_joystick();
+
+  if(read != neutral && NonStoppingDelay(1000))
+  {
+    printJoystick(read);
+  }
 
 }
 
@@ -102,7 +121,7 @@ bool NonStoppingDelay(unsigned int delayTime)
   return false;
 }
 
-void motor_rumble(int duration = 500)
+void motor_rumble(int duration)
 {
   for(int i = 0; i<3;i++)
   {
@@ -118,7 +137,7 @@ void motor_rumble(int duration = 500)
  
 }
 
-void blinkLed(int duration = 500)
+void blinkLed(int duration)
 {
   int LedPin[4] = {34,36,38,40};
   for(int i = 0; i<4;i++)
@@ -126,7 +145,7 @@ void blinkLed(int duration = 500)
     digitalWrite(LedPin[i], HIGH);
     delay(duration);
     digitalWrite(LedPin[i], LOW);
-    delay(duration);
+    delay(duration/4);
   } 
   
 }
