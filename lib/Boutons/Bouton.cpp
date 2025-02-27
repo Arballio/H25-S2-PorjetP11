@@ -15,4 +15,5 @@ int press_read()
     Serial.print(bouton2);
     Serial.print(bouton3);
     Serial.print(bouton4);
+    return press_read();
 }
