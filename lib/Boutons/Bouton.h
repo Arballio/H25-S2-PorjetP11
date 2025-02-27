@@ -1,13 +1,12 @@
 #include <Arduino.h>
-#include <stdio.h>
 
 #pragma once
 
 typedef enum{
-    SW1,
     SW2,
     SW3,
     SW4,
+    SW5,
 }ButtonsName;
 
 
@@ -23,4 +22,4 @@ void testButton();
 void printButtonState(int clicked[4]);
 void readButton(int clicked[4]);
 void initButton();
-void password();
+bool password(int max_tries = 9999);

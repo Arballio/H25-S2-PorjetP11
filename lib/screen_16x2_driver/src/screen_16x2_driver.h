@@ -15,8 +15,8 @@
 */
 // ------------------------------------------------------------------------------------------------
 
-#ifndef SCREEN_16X2_DRIVER_H_INCLUDED
-#define SCREEN_16X2_DRIVER_H_INCLUDED
+#ifndef SCREEN_16X2_DRIVER_H
+#define SCREEN_16X2_DRIVER_H
 
 #include "stdio.h"
 #include "stdint.h"
@@ -42,11 +42,12 @@
 typedef enum{
 	info,
 	fonction,
-	NextPage,
+	nextPage,
 }LineType_e;
 
 typedef enum Functions{
 //	FUNC_NAME 	= 0x{MENU}{LIGNE},
+	passwordfunc	= 0x10,
 	no_func		= 0,
 }Function_e;
 
@@ -87,4 +88,4 @@ Function_e menuManager(inputs_e input);
 void initLcd();
 void changeSpecs(Function_e Specs);
 
-#endif // SCREEN_16X2_DRIVER_H_INCLUDED
+#endif // SCREEN_16X2_DRIVER_H

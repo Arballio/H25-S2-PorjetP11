@@ -71,33 +71,16 @@ void initLcd()
 
   
       /** Menu principal */
-  Menus[0].NbLines = 4;
+  Menus[0].NbLines = 3;
 
   strcpy(Menus[0].lines[0], "Menu Principal");Menus[0].type[0] = info;
-  strcpy(Menus[0].lines[1], "Menu Shape");Menus[0].type[1] = NextPage; Menus[0].MenuPointer[1] = 1;
-  strcpy(Menus[0].lines[2], "Settings");Menus[0].type[2] = NextPage; Menus[0].MenuPointer[2] = 2;
-  strcpy(Menus[0].lines[3], "Restart");Menus[0].type[3] = info;
+  strcpy(Menus[0].lines[1], "Secret level");Menus[0].type[1] = nextPage; Menus[0].MenuPointer[1] = 1;
+  strcpy(Menus[0].lines[2], "Restart");Menus[0].type[3] = fonction;
   /** Fin init menu**/
-
   /** Menu shape */
-  Menus[1].NbLines = 3;
-
-  strcpy(Menus[1].lines[0], "Cercle");Menus[1].type[0] = info;
-  strcpy(Menus[1].lines[1], "Polygone");Menus[1].type[1] = info;
-  strcpy(Menus[1].lines[2], "return");Menus[1].type[4] = NextPage; Menus[1].MenuPointer[4] = 0;
-
-  /** Fin init menu**/
-
-  /** Menu Settings */
-  Menus[2].NbLines = 5;
-
-  strcpy(Menus[2].lines[0], "Coords");Menus[2].type[0] = NextPage; Menus[2].MenuPointer[0] = 3;
-  /** Fin init menu**/
-
-  /** Menu Settings */
-  Menus[3].NbLines = 3;
-
-  strcpy(Menus[3].lines[2], "return");Menus[2].type[4] = NextPage; Menus[3].MenuPointer[3] = 0;
+  Menus[1].NbLines = 2;
+  strcpy(Menus[1].lines[0], "Enter password");Menus[1].type[0] = fonction;
+  strcpy(Menus[1].lines[1], "return");Menus[1].type[1] = nextPage; Menus[1].MenuPointer[1] = 0;
   /** Fin init menu**/
 
   
@@ -121,7 +104,7 @@ void printLine(char c)
 
 }
 
-//Fonction interrompante?
+
 Function_e menuManager(inputs_e input)
 {
 	static int i = 0,j = 0;
@@ -144,7 +127,7 @@ Function_e menuManager(inputs_e input)
 		{
 			retCode = Function_e((i<<4 | j));
 
-		}else if(Menus[i].type[j] == NextPage)
+		}else if(Menus[i].type[j] == nextPage)
 		{
 			i = Menus[i].MenuPointer[j];
 			j = 0;
@@ -153,15 +136,17 @@ Function_e menuManager(inputs_e input)
   default:
       break;
 	}
-  lcd.noDisplay();
-	CLEAR_SCREEN();
-	printLine(Menus[i].lines[j]);
-	SET_CURSOR(0,1);
-	printLine(Menus[i].lines[(j+1)>=Menus[i].NbLines?0:j+1]);
-  lcd.display();
+  CLEAR_SCREEN();
+  lcd.setCursor(0, 0);
+  printLine(Menus[i].lines[j]);
+  lcd.setCursor(0, 1);
+  printLine(Menus[i].lines[(j+1)>=Menus[i].NbLines?0:j+1]);
   
 	return retCode;
 }
+
+
+
 
 /*void ChangeSpecs(Function_e Specs){
 

@@ -50,11 +50,12 @@ void testButton(){
     }
 }
 
-void password(){
+bool password(int max_tries = 9999){
     int count = 0;
     int password[4] = {0,2,3,2};
     int clicked[4] = {0,0,0,0};
-    while(1){
+    static int tries = 0;
+    while(tries < max_tries){
         readButton(clicked);
         if(clicked[0] || clicked[1] || clicked[2] || clicked[3]){
             if(count == 0)
@@ -68,10 +69,14 @@ void password(){
                     {count = 3;} else count = 0;}
             else if(count == 3)
                 {if(clicked[password[3]])
-                {Serial.println("Password OK"); break;}else count = 0;}
+                {Serial.println("Password OK");tries = 0; return 1;}else count = 0;}
+            tries++;
             }    
         printButtonState(clicked);
     }
+    tries = 0;
+    Serial.println("Password Failed");
+    return 0;
 }
 
 void printButtonState(int clicked[4]){
