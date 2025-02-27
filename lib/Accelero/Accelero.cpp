@@ -1,22 +1,21 @@
 #include "Accelero.h"
 
-void movementdetec()
+#define xpin A13
+#define ypin A12
+#define zpin A11
+
+
+void initAccelero()
 {
-    pinMode(groundpin, OUTPUT);
-    pinMode(powerpin, OUTPUT);
-    digitalWrite(groundpin, LOW);
-    digitalWrite(powerpin, HIGH);
-    int Xpin = analogRead(xpin);
-    int Ypin = analogRead(ypin);
-    int Zpin = analogRead(zpin);  
+    pinMode(xpin, INPUT);
+    pinMode(ypin, INPUT);
+    pinMode(zpin, INPUT);
 }
 
-void shake_bar()
+void movementdetec(int *Xpin, int *Ypin, int *Zpin)
 {
-    int max = 700;
-    int current_value;
-    movementdetec();
-    
-    current_value = Zpin;
-    bargraph(max, 300, current_value);
+    *Xpin = analogRead(xpin);
+    *Ypin = analogRead(ypin);
+    *Zpin = analogRead(zpin);  
 }
+

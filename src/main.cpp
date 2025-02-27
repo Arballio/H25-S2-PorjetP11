@@ -6,11 +6,14 @@
 #include "Bouton.h"
 #include "bargraph.h"
 #include "Joystick.h"
+#include "Accelero.h"
+
+#define MAX_IDS_DELAYS 5
 
 // ================================================================================================
 // =============================== Private functions ==============================================
 // ================================================================================================
-bool NonStoppingDelay(unsigned int delayTime);
+bool NonStoppingDelay(unsigned int delayTime,int id);
 void menuFunction(Function_e function);
 void motor_rumble(int duration = 500);
 void blinkLed(int duration = 500);
@@ -41,16 +44,36 @@ void setup() {
   initLcd();
   initPins();
   init_joy();
+  initAccelero();
+
+
   delay(1000);
   menuManager(NO_INPUT);
-  delay(1000);
   lecture_joystick();
   //while(1);
 }
 
+bool accelOrBar = 0;
 
 void loop() {
   //testButton();
+
+  int AcceleroX = 0;
+  int AcceleroY = 0;
+  int AcceleroZ = 0;
+  //movementdetec(&AcceleroX, &AcceleroY, &AcceleroZ);
+
+  if(!accelOrBar){
+    if(NonStoppingDelay(100,0)){
+      shake_bar();
+      //Serial.print("X = ");Serial.print(AcceleroX);Serial.print(" Y = ");Serial.print(AcceleroY);Serial.print(" Z = ");Serial.println(AcceleroZ);
+    }
+  } else{
+    bargraph(1024,0,analogRead(A10));
+  }
+
+
+
   static int clicked[4] = {0,0,0,0};
   readButton(clicked);
 
@@ -77,15 +100,13 @@ void loop() {
   }
   else
   {
-    if(NonStoppingDelay(1000))
+    if(NonStoppingDelay(1000,1))
       menuManager(NO_INPUT);
   }
 
-  bargraph(1024,0,analogRead(A10));
-
   direction read = lecture_joystick();
 
-  if(read != neutral && NonStoppingDelay(1000))
+  if(read != neutral && NonStoppingDelay(1000,2))
   {
     printJoystick(read);
   }
@@ -101,8 +122,13 @@ void menuFunction(Function_e function)
     {
       motor_rumble();
       blinkLed();
-      
     }
+    break;
+  case accelero:
+    accelOrBar = 0;
+    break;
+  case potbargraph:
+    accelOrBar = 1;
     break;
   
   default:
@@ -110,15 +136,16 @@ void menuFunction(Function_e function)
   }
 }
 
-bool NonStoppingDelay(unsigned int delayTime)
+bool NonStoppingDelay(unsigned int delayTime,int id)
 {
-  static unsigned long lastTime = 0;
-  if (millis() - lastTime > delayTime)
+  static unsigned long lastTime[MAX_IDS_DELAYS] = {0};
+  if (millis() - lastTime[id] > delayTime)
   {
-    lastTime = millis();
+    lastTime[id] = millis();
     return true;
   }
   return false;
+
 }
 
 void motor_rumble(int duration)

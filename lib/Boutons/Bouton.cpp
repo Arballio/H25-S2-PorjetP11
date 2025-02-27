@@ -55,6 +55,8 @@ bool password(int max_tries){
     int password[4] = {0,2,3,2};
     int clicked[4] = {0,0,0,0};
     static int tries = 0;
+    
+    Serial.println("Enter Password");
     while(tries < max_tries){
         readButton(clicked);
         if(clicked[0] || clicked[1] || clicked[2] || clicked[3]){

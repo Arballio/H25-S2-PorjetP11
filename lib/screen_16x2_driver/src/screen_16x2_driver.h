@@ -48,6 +48,8 @@ typedef enum{
 typedef enum Functions{
 //	FUNC_NAME 	= 0x{MENU}{LIGNE},
 	passwordfunc	= 0x10,
+	accelero		= 0x02,
+	potbargraph		= 0x03,
 	no_func		= 0,
 }Function_e;
 

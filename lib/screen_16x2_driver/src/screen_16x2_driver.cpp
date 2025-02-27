@@ -71,11 +71,13 @@ void initLcd()
 
   
       /** Menu principal */
-  Menus[0].NbLines = 3;
+  Menus[0].NbLines = 5;
 
   strcpy(Menus[0].lines[0], "Menu Principal");Menus[0].type[0] = info;
   strcpy(Menus[0].lines[1], "Secret level");Menus[0].type[1] = nextPage; Menus[0].MenuPointer[1] = 1;
-  strcpy(Menus[0].lines[2], "Restart");Menus[0].type[3] = fonction;
+  strcpy(Menus[0].lines[2], "Accelero");Menus[0].type[2] = fonction;
+  strcpy(Menus[0].lines[3], "Potentiometre");Menus[0].type[3] = fonction;
+  strcpy(Menus[0].lines[4], "Restart");Menus[0].type[4] = fonction;
   /** Fin init menu**/
   /** Menu shape */
   Menus[1].NbLines = 2;
