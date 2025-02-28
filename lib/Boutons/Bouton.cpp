@@ -2,7 +2,7 @@
 
 // the following variables are unsigned longs because the time, measured in
 // milliseconds, will quickly become a bigger number than can be stored in an int.
-unsigned long debounceDelay = 100;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 250;    // the debounce time; increase if the output flickers
 
 Buttons_s button1 = {48,LOW,LOW,0};
 Buttons_s button2 = {46,LOW,LOW,0};

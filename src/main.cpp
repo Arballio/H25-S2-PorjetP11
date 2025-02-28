@@ -46,7 +46,6 @@ void setup() {
   init_joy();
   initAccelero();
 
-
   delay(1000);
   menuManager(NO_INPUT);
   lecture_joystick();
@@ -72,38 +71,6 @@ void loop() {
     bargraph(1024,0,analogRead(A10));
   }
 
-
-
-  static int clicked[4] = {0,0,0,0};
-  readButton(clicked);
-
-  if (clicked[0] == 1)
-  {
-    menuManager(MENU_UP);
-    clicked[0] = 0;
-  }
-  else if (clicked[1] == 1)
-  {
-    menuManager(MENU_DOWN);
-    clicked[1] = 0;
-  }
-  else if (clicked[2] == 1)
-  {
-    menuFunction(menuManager(MENU_ENTER));
-    clicked[2] = 0;
-  }
-  else if (clicked[3] == 1)
-  {
-    //useless statement
-    //menuManager(NO_INPUT);
-    //clicked[3] = 0;
-  }
-  else
-  {
-    if(NonStoppingDelay(1000,1))
-      menuManager(NO_INPUT);
-  }
-
   direction read = lecture_joystick();
 
   if(read != neutral && NonStoppingDelay(1000,2))
@@ -111,6 +78,37 @@ void loop() {
     printJoystick(read);
   }
 
+  static int clicked[4] = {0,0,0,0};
+  readButton(clicked);
+
+  if(NonStoppingDelay(100,3)){
+    if (clicked[0] == 1 || read == up)
+    {
+      menuManager(MENU_UP);
+      clicked[0] = 0;
+    }
+    else if (clicked[1] == 1 || read == down)
+    {
+      menuManager(MENU_DOWN);
+      clicked[1] = 0;
+    }
+    else if (clicked[2] == 1 || read == left)
+    {
+      menuFunction(menuManager(MENU_ENTER));
+      clicked[2] = 0;
+    }
+    else if (clicked[3] == 1)
+    {
+      //useless statement
+      //menuManager(NO_INPUT);
+      //clicked[3] = 0;
+    }
+    else
+    {
+      if(NonStoppingDelay(1000,1))
+        menuManager(NO_INPUT);
+    }
+  }
 }
 
 void menuFunction(Function_e function)
