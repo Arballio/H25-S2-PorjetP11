@@ -19,7 +19,7 @@ typedef struct ButtonsStruct{
 
 
 void testButton();
-void printButtonState(int clicked[4]);
-void readButton(int clicked[4]);
+void printButtonState(bool clicked[4]);
+void readButton(bool clicked[4]);
 void initButton();
 bool password(int max_tries = 9999);

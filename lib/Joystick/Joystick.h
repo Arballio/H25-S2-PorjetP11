@@ -6,7 +6,7 @@
 #define y_pin A14
 
 typedef enum{
-    up = 0, down, left, right, neutral
+    down = 0b0001, up = 0b0010, right = 0b0100, left = 0b1000, neutral
 
 }direction;
 

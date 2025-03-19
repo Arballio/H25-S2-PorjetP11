@@ -17,7 +17,7 @@ void initButton(){
     }
 }
 
-void readButton(int clicked[4]) {
+void readButton(bool clicked[4]) {
   // read the state of the switch into a local variable:
     for(int i = 0; i<4;i++){
         button[i].State = digitalRead(button[i].Pin);
@@ -42,7 +42,7 @@ void readButton(int clicked[4]) {
 }
 
 void testButton(){
-    int clicked[4] = {0,0,0,0};
+    bool clicked[4] = {0,0,0,0};
     while(1){
         password();
         readButton(clicked);
@@ -53,7 +53,7 @@ void testButton(){
 bool password(int max_tries = 9999){
     int count = 0;
     int password[4] = {0,2,3,2};
-    int clicked[4] = {0,0,0,0};
+    bool clicked[4] = {0,0,0,0};
     static int tries = 0;
     
     Serial.println("Enter Password");
@@ -81,7 +81,7 @@ bool password(int max_tries = 9999){
     return 0;
 }
 
-void printButtonState(int clicked[4]){
+void printButtonState(bool clicked[4]){
     for(int i = 0; i<4;i++){
         if(clicked[i] == 1)
             {
