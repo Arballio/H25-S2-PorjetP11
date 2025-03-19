@@ -54,7 +54,7 @@ void setup() {
   init_joy();
   initAccelero();
 
-  delay(1000);
+  //delay(1000);
   lecture_joystick();
 }
 
@@ -132,11 +132,8 @@ void loop() {
     PrintFrame(FrameOut);
   }
   
-  
-  if(Serial.available())
-  {
   Frame frameIn = readMsg(); 
-  }
+  
 }
 
 void PrintFrame(Frame frame)
