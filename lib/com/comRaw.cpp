@@ -40,12 +40,12 @@ void sendMsg(Frame frame) {
 Frame readMsg(){
   byte msg[MSG_SIZE];
   if (Serial.available() < MSG_SIZE) { 
-    Serial.println("WARING-AR: Not enough bytes available! Message ignored");
+    //Serial.println("WARING-AR: Not enough bytes available! Message ignored");
     return errorFrame;  
   }
   int a = Serial.readBytes(msg, MSG_SIZE);
   if (a != MSG_SIZE) { 
-    Serial.println("WARING-AR: Not enough bytes read! Message ignored");
+    //Serial.println("WARING-AR: Not enough bytes read! Message ignored");
     return errorFrame; 
   }
   // if (msg[0] != MSG_ID_FROM_PC) { 
@@ -59,7 +59,7 @@ Frame readMsg(){
     checksum ^= msg[i];
   }
   if (checksum != msg[MSG_SIZE - 1]) { 
-    Serial.println("WARING-AR: Checksum error! Message ignored");
+    //Serial.println("WARING-AR: Checksum error! Message ignored");
     return errorFrame;  
     }
 
@@ -70,16 +70,16 @@ Frame readMsg(){
 Frame readMsg(byte id){
   byte msg[MSG_SIZE];
   if (Serial.available() < MSG_SIZE) { 
-    Serial.println("WARING-AR: Not enough bytes available! Message ignored");
+    //Serial.println("WARING-AR: Not enough bytes available! Message ignored");
     return errorFrame;  
   }
   int a = Serial.readBytes(msg, MSG_SIZE);
   if (a != MSG_SIZE) { 
-    Serial.println("WARING-AR: Not enough bytes read! Message ignored");
+    //Serial.println("WARING-AR: Not enough bytes read! Message ignored");
     return errorFrame; 
   }
   if (msg[0] != id) { 
-    Serial.println("WARING-AR: Invalid message! Message ignored");
+    //Serial.println("WARING-AR: Invalid message! Message ignored");
     return errorFrame; 
   }
  
@@ -89,7 +89,7 @@ Frame readMsg(byte id){
     checksum ^= msg[i];
   }
   if (checksum != msg[MSG_SIZE - 1]) { 
-    Serial.println("WARING-AR: Checksum error! Message ignored");
+    //Serial.println("WARING-AR: Checksum error! Message ignored");
     return errorFrame;  
     }
 

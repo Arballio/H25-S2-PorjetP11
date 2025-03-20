@@ -14,8 +14,8 @@ void initAccelero()
 
 void movementdetec(int *Xpin, int *Ypin, int *Zpin)
 {
-    *Xpin = analogRead(xpin);
-    *Ypin = analogRead(ypin);
-    *Zpin = analogRead(zpin);  
+    *Xpin = abs(analogRead(xpin)-300);
+    *Ypin = abs(analogRead(ypin)-300);
+    *Zpin = abs(analogRead(zpin)-300);  
 }
 

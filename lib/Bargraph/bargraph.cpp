@@ -25,7 +25,7 @@ void bargraph(int max, int min, int current_value)
 }
 
 
-#define MAX_ACCELERO 500
+#define MAX_ACCELERO 150
 
 //The shake_bar function will light up the bargraph when the accelerometer detects a shake
 //Once a shake is detected, the bargraph will go up for 1 unit and then go down by 1 unit every 3 second
@@ -38,14 +38,16 @@ bool shake_bar()
     
     movementdetec(&current_valueX, &current_valueY, &current_valueZ);
     
-    int average = (current_valueX + current_valueY + current_valueZ)/3;
-    if (average > MAX_ACCELERO)
+    int highest = current_valueX>current_valueY?current_valueX:(current_valueY>current_valueZ?current_valueY:current_valueZ);
+
+        if (highest > MAX_ACCELERO)
     {
         Shaked>=10?Shaked=10:Shaked+=1;
         Reset_Time = millis();
-    } else if (millis() - Reset_Time > 3000)
+    } else if (millis() - Reset_Time > 1000)
     {
         Shaked<=0?Shaked=0:Shaked-=1;
+        Reset_Time = millis();    
     }
 
     bargraph(10, 0, Shaked);

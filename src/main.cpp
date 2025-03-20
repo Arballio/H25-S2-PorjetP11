@@ -125,7 +125,7 @@ void loop() {
     //lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Time:        ");
-    lcd.setCursor(7, 0);
+    lcd.setCursor(6, 0);
     lcd.print(millis()/1000);
   }
         
@@ -137,11 +137,8 @@ void loop() {
   }
   
   Frame frameIn = readMsg(); 
-
-  if(frameIn.id != 0)
-  {
-    //PrintFrame(frameIn,true);
-    switch (frameIn.id)
+  
+  switch (frameIn.id)
     {
     case MSG_ID_PC_LED:
       digitalWrite(LED_RED, frameIn.data & 0x01);
@@ -150,7 +147,7 @@ void loop() {
       digitalWrite(LED_YELLOW, (frameIn.data & 0x08) >> 3);
       break;
     case MSG_ID_PC_MOTOR:
-      //motor_rumble(frameIn.data);
+      motor_rumble(frameIn.data);
       break;
     case MSG_ID_PC_LCD:
       
@@ -161,8 +158,6 @@ void loop() {
     default:
       break;
     }
-  }
-  
 }
 
 void PrintFrame(Frame frame)
