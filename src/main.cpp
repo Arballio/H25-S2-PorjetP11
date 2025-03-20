@@ -13,6 +13,10 @@
 #include "ComRaw.h"
 
 #define MAX_IDS_DELAYS 5
+#define LED_RED 38
+#define LED_BLUE 36
+#define LED_GREEN 34
+#define LED_YELLOW 40
 
 const int rs = 53, rw = 51, en = 49, d4 = 47, d5 = 45, d6 = 43, d7 = 41;
 LiquidCrystal lcd(rs,rw, en, d4, d5, d6, d7);
@@ -36,10 +40,10 @@ void PrintFrame(Frame frame,bool ToLCD);
 void initPins()
 {
   pinMode(2, OUTPUT);
-  pinMode(34, OUTPUT);//LED Vert
-  pinMode(36, OUTPUT);//LED Bleu
-  pinMode(38, OUTPUT);//LED Rouge
-  pinMode(40, OUTPUT);//LED Jaune
+  pinMode(LED_GREEN, OUTPUT);//LED Vert
+  pinMode(LED_BLUE, OUTPUT);//LED Bleu
+  pinMode(LED_RED, OUTPUT);//LED Rouge
+  pinMode(LED_YELLOW, OUTPUT);//LED Jaune
 
   pinMode(A10, INPUT);
 }
@@ -133,6 +137,31 @@ void loop() {
   }
   
   Frame frameIn = readMsg(); 
+
+  if(frameIn.id != 0)
+  {
+    //PrintFrame(frameIn,true);
+    switch (frameIn.id)
+    {
+    case MSG_ID_PC_LED:
+      digitalWrite(LED_RED, frameIn.data & 0x01);
+      digitalWrite(LED_BLUE, (frameIn.data & 0x02) >> 1);
+      digitalWrite(LED_GREEN, (frameIn.data & 0x04) >> 2 );
+      digitalWrite(LED_YELLOW, (frameIn.data & 0x08) >> 3);
+      break;
+    case MSG_ID_PC_MOTOR:
+      //motor_rumble(frameIn.data);
+      break;
+    case MSG_ID_PC_LCD:
+      
+      break;
+    case MSG_ID_PC_STATE:
+      
+      break;
+    default:
+      break;
+    }
+  }
   
 }
 
