@@ -17,6 +17,11 @@
 const int rs = 53, rw = 51, en = 49, d4 = 47, d5 = 45, d6 = 43, d7 = 41;
 LiquidCrystal lcd(rs,rw, en, d4, d5, d6, d7);
 
+#define GREEN_LED 34
+#define BLUE_LED 36
+#define RED_LED 38
+#define YELLOW_LED 40 
+
 // ================================================================================================
 // =============================== Private functions ==============================================
 // ================================================================================================
@@ -134,7 +139,35 @@ void loop() {
   
   Frame frameIn = readMsg(); 
   
+  if(frameIn.id != 0)
+  {
+    switch (frameIn.id){
+      case MSG_ID_PC_LED:
+        digitalWrite(GREEN_LED, frameIn.data & 0x01);
+        digitalWrite(BLUE_LED, (frameIn.data & 0x02)>>1);
+        digitalWrite(RED_LED, (frameIn.data & 0x03)>>2);
+        digitalWrite(YELLOW_LED, (frameIn.data & 0x04)>>3);
+        break;
+  
+      case MSG_ID_PC_MOTOR:
+
+        break;
+
+      case MSG_ID_PC_LCD:
+
+        break;
+      case MSG_ID_PC_STATE:
+
+        break;
+      case MSG_ID_FROM_MISC:
+      
+        break;
+      default:
+        break;
+    }
+  }
 }
+ 
 
 void PrintFrame(Frame frame)
 {
