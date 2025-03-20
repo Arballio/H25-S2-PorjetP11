@@ -29,7 +29,7 @@ void bargraph(int max, int min, int current_value)
 
 //The shake_bar function will light up the bargraph when the accelerometer detects a shake
 //Once a shake is detected, the bargraph will go up for 1 unit and then go down by 1 unit every 3 second
-bool shake_bar()
+int shake_bar()
 {
     static int Shaked = 0, Reset_Time = 0;
     int current_valueX = 0;
@@ -51,15 +51,7 @@ bool shake_bar()
     }
 
     bargraph(10, 0, Shaked);
-
-    if(Shaked > 10)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return Shaked;
 }
 
 

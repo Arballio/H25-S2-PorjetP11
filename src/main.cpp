@@ -12,10 +12,10 @@
 #include "Accelero.h"
 #include "ComRaw.h"
 
-#define MAX_IDS_DELAYS 5
-#define LED_RED 38
-#define LED_BLUE 36
+#define MAX_IDS_DELAYS 10
 #define LED_GREEN 34
+#define LED_BLUE 36
+#define LED_RED 38
 #define LED_YELLOW 40
 
 const int rs = 53, rw = 51, en = 49, d4 = 47, d5 = 45, d6 = 43, d7 = 41;
@@ -25,10 +25,14 @@ LiquidCrystal lcd(rs,rw, en, d4, d5, d6, d7);
 // =============================== Private functions ==============================================
 // ================================================================================================
 bool NonStoppingDelay(unsigned int delayTime,int id);
-void motor_rumble(int duration = 500);
+void motor_activate(int duration);
+void motor_activate(int duration, int qty);
+void motor_refresh(int duration);
+void motor_refresh(int duration, int qty);
 void blinkLed(int duration = 500);
 void PrintFrame(Frame frame);
 void PrintFrame(Frame frame,bool ToLCD);
+void motor_refresh();
 
 
 
@@ -50,17 +54,24 @@ void initPins()
 
 void setup() {
 
-  Serial.begin(9600);  
+  Serial.begin(9600);
+  delay(100);
   lcd.begin(16, 2);
+  lcd.clear();
   //Serial.println("Hello World");
   initButton();
   initPins();
   init_joy();
   initAccelero();
-
-  //delay(1000);
   lecture_joystick();
 }
+
+struct motor_t
+{
+  int Dur = 0;
+  int Qty = 0;
+  bool Active = false;
+}motor;
 
 void loop() {
   Frame FrameOut = {0, 0, 0};
@@ -71,11 +82,16 @@ void loop() {
   //movementdetec(&AcceleroX, &AcceleroY, &AcceleroZ);
 
   if(NonStoppingDelay(50,0)){
-      if(shake_bar())
+      int shake = shake_bar();
+      /*if(shake == 10)
       {
         FrameOut.data = 1;
         FrameOut.id = MSG_ID_SHAKED;
-      }
+        motor_activate(500,5);
+      }else if(shake > 5)
+      {
+        //motor_activate(50,shake);
+      }*/
     }
 
   //Lecture des boutons
@@ -141,13 +157,13 @@ void loop() {
   switch (frameIn.id)
     {
     case MSG_ID_PC_LED:
-      digitalWrite(LED_RED, frameIn.data & 0x01);
-      digitalWrite(LED_BLUE, (frameIn.data & 0x02) >> 1);
-      digitalWrite(LED_GREEN, (frameIn.data & 0x04) >> 2 );
-      digitalWrite(LED_YELLOW, (frameIn.data & 0x08) >> 3);
+      digitalWrite(LED_GREEN, (frameIn.data & 0x08)>>3);
+      digitalWrite(LED_BLUE, (frameIn.data & 0x04) >> 2);
+      digitalWrite(LED_RED, (frameIn.data & 0x02) >> 1 );
+      digitalWrite(LED_YELLOW, (frameIn.data & 0x01));
       break;
     case MSG_ID_PC_MOTOR:
-      motor_rumble(frameIn.data);
+      motor_activate(frameIn.data);
       break;
     case MSG_ID_PC_LCD:
       
@@ -158,6 +174,8 @@ void loop() {
     default:
       break;
     }
+
+  motor_refresh();
 }
 
 void PrintFrame(Frame frame)
@@ -196,20 +214,41 @@ bool NonStoppingDelay(unsigned int delayTime,int id)
 
 }
 
-void motor_rumble(int duration)
+
+void motor_activate(int duration)
 {
-  for(int i = 0; i<3;i++)
+  motor.Dur = duration;
+  !motor.Active?motor.Active = true:motor.Active = false;
+}
+
+void motor_activate(int duration, int qty)
+{
+  motor.Dur = duration;
+  motor.Qty = qty;
+  !motor.Active?motor.Active = true:motor.Active = false;
+}
+
+void motor_refresh()
+{
+  static unsigned long lastTime = 0;
+  static bool isOn = false;
+
+  if(motor.Active)
   {
-    digitalWrite(2, HIGH);
-    delay(duration);
-    digitalWrite(2, LOW);
-    delay(duration);
-  Serial.println("Rumble");
+    if(millis() - lastTime > motor.Dur)
+    {
+      lastTime = millis();
+      isOn = !isOn;
+      digitalWrite(2, isOn);
+      motor.Qty--;
+      if(motor.Qty == 0)
+      {
+        isOn = false;
+        digitalWrite(2, isOn);
+        motor.Active = false;
+      }
+    }
   }
-  digitalWrite(2, HIGH);
-  delay(duration*2);
-  digitalWrite(2, LOW);
- 
 }
 
 void blinkLed(int duration)

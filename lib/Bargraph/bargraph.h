@@ -2,4 +2,4 @@
 #include <stdio.h>
 
 void bargraph(int max, int min, int current_value);
-bool shake_bar();
+int shake_bar();
