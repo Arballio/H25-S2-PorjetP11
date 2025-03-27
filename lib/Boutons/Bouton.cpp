@@ -4,10 +4,10 @@
 // milliseconds, will quickly become a bigger number than can be stored in an int.
 unsigned long debounceDelay = 250;    // the debounce time; increase if the output flickers
 
-Buttons_s button1 = {48,LOW,LOW,0};
-Buttons_s button2 = {46,LOW,LOW,0};
-Buttons_s button3 = {44,LOW,LOW,0};
-Buttons_s button4 = {42,LOW,LOW,0};
+Buttons_s button1 = {48,LOW,LOW,0,40};
+Buttons_s button2 = {46,LOW,LOW,0,38};
+Buttons_s button3 = {44,LOW,LOW,0,36};
+Buttons_s button4 = {42,LOW,LOW,0,34};
 Buttons_s button[4] = {button1,button2,button3,button4};
 
 
@@ -30,11 +30,13 @@ void readButton(bool clicked[4]) {
             button[i].lastDebounceTime = millis();
             button[i].lastState = button[i].State;
             clicked[i] = HIGH;
+            digitalWrite(button[i].assignedLedPin, HIGH);
             //Serial.print("Button ");Serial.print(i);Serial.print(" = ");Serial.println(button[i].State);
         }
         else if (!button[i].State && button[i].lastState) {
             if ((millis() - button[i].lastDebounceTime) > debounceDelay) {
                     button[i].lastState = LOW;
+                    digitalWrite(button[i].assignedLedPin, LOW);
                     //Serial.print("Button ");Serial.print(i);Serial.print(" = ");Serial.println("Released");
             }
         }

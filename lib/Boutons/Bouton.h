@@ -15,6 +15,7 @@ typedef struct ButtonsStruct{
     int State;
     int lastState;
     unsigned long lastDebounceTime;
+    int assignedLedPin;
 }Buttons_s;
 
 

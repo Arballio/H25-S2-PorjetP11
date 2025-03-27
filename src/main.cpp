@@ -54,7 +54,7 @@ void initPins()
 
 void setup() {
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(100);
   lcd.begin(16, 2);
   lcd.clear();
@@ -81,7 +81,7 @@ void loop() {
   //int AcceleroZ = 0;
   //movementdetec(&AcceleroX, &AcceleroY, &AcceleroZ);
 
-  if(NonStoppingDelay(50,0)){
+  if(NonStoppingDelay(100,0)){
       int shake = shake_bar();
       /*if(shake == 10)
       {
@@ -149,12 +149,12 @@ void loop() {
   if(FrameOut.id != 0)
   {  
     sendMsg(FrameOut);
-    PrintFrame(FrameOut);
+    //PrintFrame(FrameOut,1);
   }
   
   Frame frameIn = readMsg(); 
   
-  switch (frameIn.id)
+  switch(frameIn.id)
     {
     case MSG_ID_PC_LED:
       digitalWrite(LED_GREEN, (frameIn.data & 0x08)>>3);
